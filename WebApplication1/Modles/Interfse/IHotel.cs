@@ -1,11 +1,13 @@
-﻿namespace WebApplication1.Modles.Interfse
+﻿using WebApplication1.Modles.DTO;
+
+namespace WebApplication1.Modles.Interfse
 {
     public interface IHotel
     {
         Task<Hotel> Create(Hotel hotel);
-        Task<List<Hotel>> GetHotels();
-        Task<Hotel> GetHotelId(int id);
+        Task<List<HotelDTO>> GetHotels();
+        Task<HotelDTO> GetHotelId(int id);
         Task<Hotel> Update(int id, Hotel hotel);
-        Task<Hotel> Delete(int id);
+        Task Delete(int id);
     }
 }

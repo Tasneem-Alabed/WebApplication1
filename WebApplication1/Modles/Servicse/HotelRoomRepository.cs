@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using WebApplication1.Data;
 using WebApplication1.Modles.Interfse;
+using WebApplication1.Modles.DTO;
 
 namespace WebApplication1.Modles.Servicse
 {
@@ -21,6 +22,11 @@ namespace WebApplication1.Modles.Servicse
             _context.HotelRoom.Add(HotelRoom);
             await _context.SaveChangesAsync();
             return HotelRoom;
+        }
+
+        public Task<Hotel> Create(Hotel HotelRoom)
+        {
+            throw new NotImplementedException();
         }
 
         public async Task<HotelRoom> Delete(int idHotel, int idRoom)
@@ -52,6 +58,26 @@ namespace WebApplication1.Modles.Servicse
             await _context.SaveChangesAsync();
             return Temproom;
 
+        }
+
+        public Task<Hotel> Update(int idHotel, int idRoom, Hotel HotelRoom)
+        {
+            throw new NotImplementedException();
+        }
+
+        Task<Hotel> IHotelPoom.Delete(int idHotel, int idRoom)
+        {
+            throw new NotImplementedException();
+        }
+
+        Task<Hotel> IHotelPoom.GetHotelRoomId(int idHotel, int idRoom)
+        {
+            throw new NotImplementedException();
+        }
+
+        Task<List<Hotel>> IHotelPoom.GetHotelRooms()
+        {
+            throw new NotImplementedException();
         }
     }
 }

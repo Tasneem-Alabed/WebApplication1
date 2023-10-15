@@ -23,6 +23,7 @@ namespace WebApplication1.Controller
 
         // GET: api/HotelRooms
         [HttpGet]
+
         [Route ("/api/Hotels/{hotelId}/Rooms")]
         public async Task<ActionResult<IEnumerable<HotelRoom>>> GetHotelRoom()
         {
