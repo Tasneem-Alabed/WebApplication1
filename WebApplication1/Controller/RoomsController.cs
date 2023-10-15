@@ -43,7 +43,8 @@ namespace WebApplication1.Controller
         // GET: api/Rooms/5
         [HttpGet("{id}")]
         public async Task<ActionResult<Room>> GetRoom(int id)
-        {
+        { 
+
           if (_context.Room == null)
           {
               return NotFound();
