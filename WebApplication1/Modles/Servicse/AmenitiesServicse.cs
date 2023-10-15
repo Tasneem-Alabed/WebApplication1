@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using WebApplication1.Data;
+using WebApplication1.Modles.DTO;
 using WebApplication1.Modles.Interfse;
 using WebApplication1.Modles.Interfse;
 namespace WebApplication1.Modles.Servicse
@@ -12,11 +13,20 @@ namespace WebApplication1.Modles.Servicse
         {
             _context = context;
         }
-        public async Task<Amenities> Create(Amenities aminity)
+        public async Task<AminityDTO> Create(AminityDTO aminity)
         {
-            _context.Amenities.Add(aminity);
+            var newAmenity = new Amenities()
+            {
+                Name = aminity.Name,
+            };
+            _context.Amenities.Add(newAmenity);
+
             await _context.SaveChangesAsync();
+
+           
+
             return aminity;
+
         }
 
         public async Task<Amenities> Delete(int id)
@@ -33,16 +43,24 @@ namespace WebApplication1.Modles.Servicse
             return amiety;
         }
 
-        public async Task<List<Amenities>> GetAmenities()
+        public async Task<List<AminityDTO>> GetAmenities()
         {
-            return await _context.Amenities.ToListAsync();
+            var amenities = await _context.Amenities
+                .Select(amenity => new AminityDTO
+                {
+                    Id = amenity.Id,
+                    Name = amenity.Name
+                }).ToListAsync();
+
+            return amenities;
         }
 
-        public async Task<Amenities> Update(int id, Amenities updateAmenites)
+      
+        public async Task<Amenities> Update(int id, Amenities amenities)
         {
             var amenty = await GetAmenitieId(id);
-            amenty.Name = updateAmenites.Name;
-            amenty.RoomAmeneties = updateAmenites.RoomAmeneties;
+            amenty.Name = amenities.Name;
+            amenty.RoomAmeneties = amenities.RoomAmeneties;
             _context.Entry(amenty).State = EntityState.Modified;
             await _context.SaveChangesAsync();
             return amenty;

@@ -12,22 +12,44 @@ namespace WebApplication1
         {
             var builder = WebApplication.CreateBuilder(args);
             builder.Services.AddControllers();
-            string connString = builder.Configuration.GetConnectionString("DefaultConnection");
+
+            string ?connString = builder.Configuration.GetConnectionString("DefaultConnection");
 
             builder.Services.AddDbContext<HotelDbContest>(options => options.UseSqlServer(connString));
-            builder.Services.AddControllers();
+           
             builder.Services.AddTransient<IHotel, HotelServices>();
             builder.Services.AddTransient<IRoom, RoomServicse>();
             builder.Services.AddTransient<IAmenities, AmenitiesServicse>();
             builder.Services.AddTransient<IHotelPoom, HotelRoomRepository>();
+            builder.Services.AddSwaggerGen(options =>
+            {
+                options.SwaggerDoc("v1", new Microsoft.OpenApi.Models.OpenApiInfo()
+                {
+                    Title = "AsyncInn API",
+                    Version = "v1"
 
-            builder.Services.AddControllers();
+                });
+            });
 
             var app = builder.Build();
+
+            app.UseSwagger(opt =>
+            {
+                opt.RouteTemplate = "/api/{documentName}/swagger.json";
+            });
+
+            app.UseSwaggerUI(opt =>
+            {
+                opt.SwaggerEndpoint("/api/v1/swagger.json", "Asy API");
+                opt.RoutePrefix = "docs";
+            });
+
             app.MapControllers();
-            app.MapGet("/", () => "Hello !");
+
+            app.MapGet("/", () => "Hello World!");
 
             app.Run();
-        }
+
+        } 
     }
 }
